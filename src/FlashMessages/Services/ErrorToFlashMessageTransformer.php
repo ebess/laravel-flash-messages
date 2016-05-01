@@ -12,10 +12,8 @@ class ErrorToFlashMessageTransformer
     public function transform(FlashMessages $flashMessages)
     {
         if (session()->has('errors')) {
-            foreach (session('errors')->getMessages() as $type => $messages) {
-                foreach ($messages as $text) {
-                    $flashMessages->add('danger', $text);
-                }
+            foreach (session('errors')->all() as $messages) {
+                $flashMessages->add('danger', $messages);
             }
         }
 
